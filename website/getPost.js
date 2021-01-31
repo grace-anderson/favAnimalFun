@@ -8,47 +8,38 @@ let apiKey = "&appid=9f15e45060..."; //imagined key
 document.getElementById("generate").addEventListener("click", performAction);
 
 function performAction(e) {
-  const fav = document.getElementByID('fav').value;
+  const fav = document.getElementById("fav").value;
 }
 
-// Faking an API call 
-getAnimal('/fakeAnimalData')
-.then(function(data){
-  //add data
-  console.log(data)
-  postData('/addAnimal', {animal:data.animal, fact:data.fact, fav:fav})
-  updateUI()
-});
-
 //POST example
-const postData = async (url = '', data = {})=>{
+const postData = async (url = "", data = {}) => {
   const response = await fetch(url, {
-    method: 'POST',
-    credentials: 'same-origin',
+    method: "POST",
+    credentials: "same-origin",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
   try {
     const newData = await response.json();
     console.log(newData);
-    return newData
-  }catch(error){
-  console.log("error", error);
+    return newData;
+  } catch (error) {
+    console.log("error", error);
   }
-}
+};
 
 const getAnimal = async (url) => {
-  const res = await fetch(url)
+  const res = await fetch(url);
   try {
     const data = await res.json();
-    console.log(data)
+    console.log(data);
     return data;
-  }catch(error){
+  } catch (error) {
     console.log("error", error);
-    }
-}
+  }
+};
 
 const updateUI = async () => {
   const request = await fetch("/all");
@@ -63,4 +54,10 @@ const updateUI = async () => {
   }
 };
 
-
+// Faking an API call
+getAnimal("/fakeAnimalData").then(function (data) {
+  //add data
+  console.log(data);
+  postData("/addAnimal", { animal: data.animal, fact: data.fact, fav: fav });
+  updateUI();
+});

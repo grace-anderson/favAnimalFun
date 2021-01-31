@@ -52,7 +52,7 @@ function getData(req, res) {
 }
 
 //Post route
-app.post('./addAnimal', addAnimal);
+app.post('/addAnimal', addAnimal);
 
 function addAnimal(req, res) {
     
