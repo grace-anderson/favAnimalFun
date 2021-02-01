@@ -9,6 +9,16 @@ document.getElementById("generate").addEventListener("click", performAction);
 
 function performAction(e) {
   const fav = document.getElementById("fav").value;
+  const animal = document.getElementById("animal").value;
+  console.log(fav, animal);
+  // Faking an API call
+  getAnimal("/fakeAnimalData")
+    .then(function (data) {
+      postData("/addAnimal", { animal: animal, fact: data.fact, fav: fav });
+    })
+    .then(function () {
+      updateUI();
+    });
 }
 
 //POST example
@@ -54,10 +64,4 @@ const updateUI = async () => {
   }
 };
 
-// Faking an API call
-getAnimal("/fakeAnimalData").then(function (data) {
-  //add data
-  console.log(data);
-  postData("/addAnimal", { animal: data.animal, fact: data.fact, fav: fav });
-  updateUI();
-});
+
